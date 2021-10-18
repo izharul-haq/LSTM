@@ -10,6 +10,6 @@ def tanh(x: np.ndarray) -> np.ndarray:
 
 def tanh_prime(x: np.ndarray) -> np.ndarray:
     '''Calculate differential of tanh activation
-    value from given numoy array'''
+    value from given numPy array'''
 
     return 1 - (np.tanh(x) ** 2)

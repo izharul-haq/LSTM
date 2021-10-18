@@ -20,3 +20,10 @@ class LSTM:
         element using one hot encoding'''
 
         pass
+
+    def fit(self, X_train: np.ndarray, Y_train: np.ndarray, learning_rate: float, epochs: int) -> None:
+        '''Train LSTM model using backpropagation
+        through time (BPTT) using given training
+        data and learning rate for given epochs.'''
+
+        pass
