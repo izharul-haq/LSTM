@@ -8,7 +8,8 @@ class LSTM:
 
     def __init__(self, n_cells: int, input_size: (int, int)):
         self.__n_cells = n_cells
-        self.__input_size = input_size
+        self.__timestep = input_size[0]
+        self.__features = input_size[1]
 
         pass
 
@@ -24,6 +25,12 @@ class LSTM:
     def fit(self, X_train: np.ndarray, Y_train: np.ndarray, learning_rate: float, epochs: int) -> None:
         '''Train LSTM model using backpropagation
         through time (BPTT) using given training
-        data and learning rate for given epochs.'''
+        data and learning rate for given epochs'''
+
+        pass
+
+    # TODO : implement summary method
+    def summary(self) -> None:
+        '''Print a summary for this model'''
 
         pass
