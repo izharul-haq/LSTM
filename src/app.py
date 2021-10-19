@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 
 from model import LSTM
@@ -15,4 +16,5 @@ test = pd.read_csv('data/test.csv')
 # TODO : 3. Split market cap feature into 4 features
 
 # Initialize model
-lstm = LSTM(50, input_size=(32, 12))
+lstm = LSTM(n_input=4, n_hidden=4, n_output=4, timestep=1)
+lstm.forward(np.array([[0, 1, 2, 3]]))
