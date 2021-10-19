@@ -46,7 +46,7 @@ class LSTM:
         # biases from RNN state to output vector
         self.__biases_ho = np.random.randn(n_output)
 
-    # TODO : implement forward propagation
+    # TODO : review forward propagation
     def forward(self, _input: np.ndarray) -> np.ndarray:
         '''Execute forward propagation given input.
 
@@ -72,16 +72,17 @@ class LSTM:
             )
 
             # Cell State
-            prev_c = None   # TODO : update prev_c value
+            prev_c = np.multiply(curr_f, prev_c) + np.multiply(curr_i, temp_c)
 
             # Output Gate
             curr_o = sigmoid(
                 self.__Uo @ _input[i] + self.__Wo @ prev_h + self.__bo
             )
 
-            prev_h = None   # TODO : update prev_h value
+            prev_h = np.multiply(curr_o, tanh(prev_c))
 
-        # TODO : calculate output
+        # output neurons use linear activation
+        return self.__V @ prev_h + self.__biases_ho
 
     def fit(self, X_train: np.ndarray, Y_train: np.ndarray, learning_rate: float, epochs: int) -> None:
         '''Train LSTM model using backpropagation

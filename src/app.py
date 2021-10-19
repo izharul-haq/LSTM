@@ -12,9 +12,9 @@ test = pd.read_csv('data/test.csv')
 # Preprocess data
 # TODO : preprocessing data
 # TODO : 1. Drop date feature
-# TODO : 2. Split volume feature into 4 features
-# TODO : 3. Split market cap feature into 4 features
+# TODO : 2. Handle volume feature
+# TODO : 3. Handle market cap feature
 
 # Initialize model
 lstm = LSTM(n_input=4, n_hidden=4, n_output=4, timestep=1)
-lstm.forward(np.array([[0, 1, 2, 3]]))
+print(lstm.forward(np.array([[0, 1, 2, 3]])))
