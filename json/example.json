@@ -1,0 +1,6 @@
+{
+    "n_input": 4,
+    "n_hiden": 4,
+    "n_output": 4,
+    "timestep": 1
+}

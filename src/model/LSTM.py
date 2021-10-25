@@ -1,3 +1,4 @@
+import json
 import numpy as np
 
 from functions import sigmoid, tanh
@@ -106,10 +107,28 @@ class LSTM:
     def save(self, filename: str) -> None:
         '''Save LSTM model into an external .json file'''
 
-        pass
+        model = {
+            'n_input': self.__n_input,
+            'n_hiden': self.__n_hidden,
+            'n_output': self.__n_output,
+            'timestep' : self.__timestep,
+        }
+
+        json_obj = json.dumps(model, indent=4)
+        with open(f'{filename}.json', 'w') as f:
+            f.write(json_obj)
+
 
     # TODO : implement load model from an external file
     def load(self, filename: str) -> None:
         '''Load LSTM model from an external .json file'''
+        with open(f'{filename}.json', 'r') as f:
+            json_obj = json.load(f)
 
-        pass
+            self.__n_input = json_obj['n_input']
+            self.__n_hidden = json_obj['n_hiden']
+            self.__n_output = json_obj['n_output']
+            self.__timestep = json_obj[ 'timestep']
+            
+            f.close()
+

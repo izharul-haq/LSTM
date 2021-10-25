@@ -17,4 +17,8 @@ test = pd.read_csv('data/test.csv')
 
 # Initialize model
 lstm = LSTM(n_input=4, n_hidden=4, n_output=4, timestep=1)
+# lstm.save('json/example')
+# lstm2 = LSTM()
+lstm.load('json/example')
 print(lstm.forward(np.array([[0, 1, 2, 3]])))
+
