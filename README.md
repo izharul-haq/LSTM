@@ -4,7 +4,7 @@ Simple LSTM implementation with python and numpy.
 
 ## Requirements
 
-1. [python 3](https://python.org/)
+1. [python 3.8+](https://python.org/)
 
 ## How to Install
 

@@ -1,20 +1,19 @@
 import numpy as np
 import pandas as pd
-
-from model import LSTM
 from sklearn.preprocessing import MinMaxScaler
 
+from model import Sequential
 
 # Read training data
-train = pd.read_csv('../data/train.csv')
-test = pd.read_csv('../data/test.csv')
+train = pd.read_csv('data/train.csv')
+test = pd.read_csv('data/test.csv')
 
 
 # Preprocess data
 # TODO : preprocessing data
 # TODO : 1. Drop date feature
-train = train.drop(['Date'], axis = 1)
-test = test.drop(['Date'], axis = 1)
+train = train.drop(['Date'], axis=1)
+test = test.drop(['Date'], axis=1)
 # TODO : 2. Handle volume feature
 
 # Drop null value and change dtypes of volume to int64

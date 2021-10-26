@@ -1,11 +1,11 @@
-import json
 import numpy as np
 
+from .Layer import Layer
 from functions import sigmoid, tanh
 
 
-class LSTM:
-    '''Simple Many-to-One LSTM implementation'''
+class LSTM(Layer):
+    '''Simple Many-to-One LSTM Layer implementation'''
 
     idx = 0
 
@@ -47,12 +47,22 @@ class LSTM:
         # biases from RNN state to output vector
         self.__biases_ho = np.random.randn(n_output)
 
+    # TODO : implement get output shapes
+    def get_output_shape(self):
+        '''Get output shape from LSTM layer'''
+
+        pass
+
+    # TODO : implement get parameters
+    def get_params(self):
+        '''Get number of parameters from dense layer'''
+
+        pass
+
     # TODO : review forward propagation
     def forward(self, _input: np.ndarray) -> np.ndarray:
-        '''Execute forward propagation given input.
-
-        It's assumed that given input is a list of encoded
-        element using one hot encoding'''
+        '''Execute forward propagation for LSTM layer with
+        given input'''
 
         prev_h = np.zeros(self.__n_hidden)
         prev_c = np.zeros(self.__n_hidden)
@@ -83,52 +93,22 @@ class LSTM:
             prev_h = np.multiply(curr_o, tanh(prev_c))
 
         # output neurons use linear activation
-        return self.__V @ prev_h + self.__biases_ho
+        return prev_h
 
-    def fit(self, X_train: np.ndarray, Y_train: np.ndarray, learning_rate: float, epochs: int) -> None:
-        '''Train LSTM model using backpropagation
-        through time (BPTT) using given training
-        data and learning rate for given epochs'''
+    def backward(self, grad: np.ndarray, learning_rate: float) -> np.ndarray:
+        '''Execute backward propagation for LSTM layer
+        with given gradient and learning rate'''
 
         pass
 
-    # TODO : implement summary method
-    def summary(self) -> None:
-        '''Print a summary for this model'''
+    # TODO : convert LSTM layer into dictionary
+    def to_dict(self) -> dict:
+        '''Convert LSTM layer into dictionary'''
 
-        print(f'Model {self.__name}')
-        print('------------------------------------------------------------------')
-        print()  # TODO : add headers
-        print('==================================================================')
+        pass
 
-        # TODO : print important information (parameter, output shape, etc.)
+    # TODO : load LSTM layer from dictionary
+    def from_dict(self, data: dict) -> None:
+        '''Load LSTM layer from dictionary'''
 
-    # TODO : implement save model to an external file
-    def save(self, filename: str) -> None:
-        '''Save LSTM model into an external .json file'''
-
-        model = {
-            'n_input': self.__n_input,
-            'n_hiden': self.__n_hidden,
-            'n_output': self.__n_output,
-            'timestep' : self.__timestep,
-        }
-
-        json_obj = json.dumps(model, indent=4)
-        with open(f'{filename}.json', 'w') as f:
-            f.write(json_obj)
-
-
-    # TODO : implement load model from an external file
-    def load(self, filename: str) -> None:
-        '''Load LSTM model from an external .json file'''
-        with open(f'{filename}.json', 'r') as f:
-            json_obj = json.load(f)
-
-            self.__n_input = json_obj['n_input']
-            self.__n_hidden = json_obj['n_hiden']
-            self.__n_output = json_obj['n_output']
-            self.__timestep = json_obj[ 'timestep']
-            
-            f.close()
-
+        pass
