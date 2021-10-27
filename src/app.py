@@ -52,5 +52,6 @@ model = Sequential(layers = [
 ])
 # model.save('json/example3')
 # lstm2 = LSTM()
-model.load('json/example3')
+# model.load('json/example3')
 # print(lstm.forward(np.array([[0, 1, 2, 3]])))
+model.summary()

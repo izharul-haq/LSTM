@@ -31,16 +31,32 @@ class Sequential:
 
         pass
 
-    # TODO : implement summary method
+    
     def summary(self) -> None:
         '''Print a summary for this model'''
 
         print(f'Model {self.__name}')
         print('------------------------------------------------------------------')
-        print()  # TODO : add headers
+        print('Layer' + '                ' + 'Output Shape' + '          ' + 'Param #')
         print('==================================================================')
 
-        # TODO : print important information (parameter, output shape, etc.)
+        sum = 0
+        for layer in self.__layers:
+            if isinstance(layer, Dense):
+                name = 'Dense'
+                output_shape = layer.get_output_shape()
+                params = layer.get_params()
+            elif isinstance(layer, LSTM):
+                name = 'LSTM'
+                output_shape = layer.get_output_shape()
+                params = layer.get_params()
+            sum += params
+            print(f'{name.ljust(15, " ")}      {str(output_shape).ljust(16, " ")}      {params}')
+            print('------------------------------------------------------------------')
+        print('==================================================================')
+        print(f'Total Params: {sum}')
+        print(f'Trainable Params: {sum}')
+        print('Non-Trainable Params: 0')
 
     # TODO : implemenet save model to an external .json file
     def save(self, filename: str) -> None:

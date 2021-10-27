@@ -47,13 +47,13 @@ class LSTM(Layer):
     def get_output_shape(self):
         '''Get output shape from LSTM layer'''
         
-        pass
+        return (None, self.__n_hidden)
 
     # TODO : implement get parameters
     def get_params(self):
         '''Get number of parameters from dense layer'''
 
-        pass
+        return 4*self.__n_hidden*(self.__n_input+self.__n_hidden+1)
 
     # TODO : review forward propagation
     def forward(self, _input: np.ndarray) -> np.ndarray:

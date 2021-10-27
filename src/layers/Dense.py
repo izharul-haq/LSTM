@@ -25,7 +25,7 @@ class Dense(Layer):
     def get_output_shape(self) -> tuple:
         '''Get output shape from dense layer'''
 
-        return (1, self.__n_output)
+        return (None, self.__n_output)
 
     def get_params(self) -> int:
         '''Get number of parameters from dense layer'''
