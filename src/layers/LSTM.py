@@ -7,16 +7,12 @@ from functions import sigmoid, tanh
 class LSTM(Layer):
     '''Simple Many-to-One LSTM Layer implementation'''
 
-    idx = 0
-
     def __init__(self,
                  n_input: int,
                  n_hidden: int,
                  n_output: int,
                  timestep: int
                  ):
-        self.__name = f'LSTM {LSTM.idx + 1}'
-        LSTM.idx += 1
 
         # Parameters
         self.__n_input = n_input        # number of input neurons; number of features
@@ -50,7 +46,7 @@ class LSTM(Layer):
     # TODO : implement get output shapes
     def get_output_shape(self):
         '''Get output shape from LSTM layer'''
-
+        
         pass
 
     # TODO : implement get parameters
@@ -104,6 +100,27 @@ class LSTM(Layer):
     # TODO : convert LSTM layer into dictionary
     def to_dict(self) -> dict:
         '''Convert LSTM layer into dictionary'''
+        return{
+            'name' : 'LSTM', 
+            'n_input' : self.__n_input,
+            'n_ouput' : self.__n_output,
+            'n_hiden' : self.__n_hidden,
+            'timestep': self.__timestep,
+            'Uf' : self.__Uf.tolist(),
+            'Ui' : self.__Ui.tolist(),
+            'Uc' : self.__Uc.tolist(),
+            'Uo' : self.__Uo.tolist(),
+            'Wf' : self.__Wf.tolist(),
+            'Wi' : self.__Wi.tolist(),
+            'Wc' : self.__Wc.tolist(),
+            'Wo' : self.__Wo.tolist(),
+            'Bf' : self.__bf.tolist(),
+            'Bi' : self.__bi.tolist(),
+            'Bc' : self.__bc.tolist(),
+            'Bo' : self.__bo.tolist(),
+            'V'  : self.__V.tolist(),
+            'bias' : self.__biases_ho.tolist()
+        }
 
         pass
 
@@ -111,4 +128,31 @@ class LSTM(Layer):
     def from_dict(self, data: dict) -> None:
         '''Load LSTM layer from dictionary'''
 
-        pass
+        self.__n_input = data['n_input']
+        self.__n_hidden = data['n_hiden']
+        self.__n_output = data['n_ouput']
+
+        self.__timestep = data['timestep']
+
+        # Weight Matrices
+        self.__Uf = np.array(data['Uf'])
+        self.__Ui = np.array(data['Ui'])
+        self.__Uc = np.array(data['Uc'])
+        self.__Uo = np.array(data['Uo'])
+
+        self.__Wf = np.array(data['Wf'])
+        self.__Wi = np.array(data['Wi'])
+        self.__Wc = np.array(data['Wc'])
+        self.__Wo = np.array(data['Wo'])
+
+        self.__V = np.array(data['V'])
+
+        # Biases
+        self.__bf = np.array(data['Bf'])
+        self.__bi = np.array(data['Bi'])
+        self.__bc = np.array(data['Bc'])
+        self.__bo = np.array(data['Bo'])
+
+        # biases from RNN state to output vector
+        self.__biases_ho = np.array(data['bias'])
+

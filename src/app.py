@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 
+from layers import LSTM, Dense
 from model import Sequential
 
 # Read training data
@@ -45,8 +46,11 @@ test_scaled = pd.DataFrame(test_scaled, columns=test.columns)
 # print(test_scaled.head())
 
 # Initialize model
-# lstm = LSTM(n_input=4, n_hidden=4, n_output=4, timestep=1)
-# lstm.save('json/example')
+model = Sequential(layers = [
+    LSTM(n_input=4, n_hidden=4, n_output=4, timestep=1),
+    Dense(n_input = 1, n_output =1 , activation = "sigmoid"),
+])
+# model.save('json/example3')
 # lstm2 = LSTM()
-# lstm.load('json/example')
+model.load('json/example3')
 # print(lstm.forward(np.array([[0, 1, 2, 3]])))

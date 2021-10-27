@@ -2,6 +2,9 @@ import json
 
 import numpy as np
 
+
+from errors import InputError
+from layers import LSTM, Dense
 from layers import Layer
 
 
@@ -43,10 +46,35 @@ class Sequential:
     def save(self, filename: str) -> None:
         '''Save sequential model to an external .json file'''
 
-        pass
+        model = {
+            'name': self.__name,
+            'layers': [layer.to_dict() for layer in self.__layers],
+        }
+
+        json_obj = json.dumps(model, indent=4)
+        with open(f'{filename}.json', 'w') as f:
+            f.write(json_obj)
 
     # TODO : implemenet load model from an external .json file
     def load(self, filename: str) -> None:
         '''Load sequential model from an external .json file'''
 
-        pass
+        with open(f'{filename}.json', 'r') as f:
+            json_obj = json.load(f)
+
+            self.__name = json_obj['name']
+            self.__layers = []
+            for layer in json_obj['layers']:
+                if layer['name'] == 'LSTM':
+                    temp = LSTM(n_input=4, n_hidden=4, n_output=4, timestep=1)     # Dummy layer
+
+                elif layer['name'] == 'Dense':
+                    temp = Dense(n_input = 1, n_output =1 , activation = "sigmoid")          # Dummy layer
+
+                else:
+                    raise InputError('layer not supported')
+
+                temp.from_dict(layer)
+                self.__layers.append(temp)
+
+            f.close()
