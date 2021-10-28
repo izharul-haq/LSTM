@@ -2,7 +2,6 @@ import json
 
 import numpy as np
 
-
 from errors import InputError
 from layers import LSTM, Dense
 from layers import Layer
@@ -13,7 +12,7 @@ class Sequential:
         # Identifier
         self.__name = name
 
-        # Attributes
+        # Layers
         self.__layers: list[Layer] = layers
 
     def forward(self, _input: np.ndarray) -> np.ndarray:
@@ -31,13 +30,14 @@ class Sequential:
 
         pass
 
-    
     def summary(self) -> None:
         '''Print a summary for this model'''
 
         print(f'Model {self.__name}')
         print('------------------------------------------------------------------')
-        print('Layer' + '                ' + 'Output Shape' + '          ' + 'Param #')
+        print(
+            'Layer' + '                ' + 'Output Shape' + '          ' +
+            'Param #')
         print('==================================================================')
 
         sum = 0
@@ -51,14 +51,14 @@ class Sequential:
                 output_shape = layer.get_output_shape()
                 params = layer.get_params()
             sum += params
-            print(f'{name.ljust(15, " ")}      {str(output_shape).ljust(16, " ")}      {params}')
+            print(
+                f'{name.ljust(15, " ")}      {str(output_shape).ljust(16, " ")}      {params}')
             print('------------------------------------------------------------------')
         print('==================================================================')
         print(f'Total Params: {sum}')
         print(f'Trainable Params: {sum}')
         print('Non-Trainable Params: 0')
 
-    # TODO : implemenet save model to an external .json file
     def save(self, filename: str) -> None:
         '''Save sequential model to an external .json file'''
 
@@ -71,7 +71,6 @@ class Sequential:
         with open(f'{filename}.json', 'w') as f:
             f.write(json_obj)
 
-    # TODO : implemenet load model from an external .json file
     def load(self, filename: str) -> None:
         '''Load sequential model from an external .json file'''
 
@@ -82,10 +81,12 @@ class Sequential:
             self.__layers = []
             for layer in json_obj['layers']:
                 if layer['name'] == 'LSTM':
-                    temp = LSTM(n_input=4, n_hidden=4, n_output=4, timestep=1)     # Dummy layer
+                    temp = LSTM(n_input=4, n_hidden=4, n_output=4,
+                                timestep=1)     # Dummy layer
 
                 elif layer['name'] == 'Dense':
-                    temp = Dense(n_input = 1, n_output =1 , activation = "sigmoid")          # Dummy layer
+                    temp = Dense(n_input=1, n_output=1,
+                                 activation="sigmoid")          # Dummy layer
 
                 else:
                     raise InputError('layer not supported')

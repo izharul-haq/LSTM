@@ -47,7 +47,7 @@ test_scaled = pd.DataFrame(test_scaled, columns=test.columns)
 
 # Initialize model
 model = Sequential(layers = [
-    LSTM(n_input=4, n_hidden=4, n_output=4, timestep=1),
+    LSTM(n_input=4, n_hidden=4, timestep=1),
     Dense(n_input = 1, n_output =1 , activation = "sigmoid"),
 ])
 # model.save('json/example3')

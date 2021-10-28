@@ -10,14 +10,12 @@ class LSTM(Layer):
     def __init__(self,
                  n_input: int,
                  n_hidden: int,
-                 n_output: int,
                  timestep: int
                  ):
 
         # Parameters
         self.__n_input = n_input        # number of input neurons; number of features
         self.__n_hidden = n_hidden      # number of hidden neurons
-        self.__n_output = n_output      # number of output neurons
 
         self.__timestep = timestep      # timestep used
 
@@ -32,30 +30,22 @@ class LSTM(Layer):
         self.__Wc = np.random.randn(n_hidden, n_hidden)
         self.__Wo = np.random.randn(n_hidden, n_hidden)
 
-        self.__V = np.random.randn(n_output, n_hidden)
-
         # Biases
         self.__bf = np.random.randn(n_hidden)
         self.__bi = np.random.randn(n_hidden)
         self.__bc = np.random.randn(n_hidden)
         self.__bo = np.random.randn(n_hidden)
 
-        # biases from RNN state to output vector
-        self.__biases_ho = np.random.randn(n_output)
-
-    # TODO : implement get output shapes
     def get_output_shape(self):
         '''Get output shape from LSTM layer'''
-        
+
         return (None, self.__n_hidden)
 
-    # TODO : implement get parameters
     def get_params(self):
         '''Get number of parameters from dense layer'''
 
-        return 4*self.__n_hidden*(self.__n_input+self.__n_hidden+1)
+        return 4 * self.__n_hidden * (self.__n_input + self.__n_hidden + 1)
 
-    # TODO : review forward propagation
     def forward(self, _input: np.ndarray) -> np.ndarray:
         '''Execute forward propagation for LSTM layer with
         given input'''
@@ -97,40 +87,35 @@ class LSTM(Layer):
 
         pass
 
-    # TODO : convert LSTM layer into dictionary
     def to_dict(self) -> dict:
         '''Convert LSTM layer into dictionary'''
-        return{
-            'name' : 'LSTM', 
-            'n_input' : self.__n_input,
-            'n_ouput' : self.__n_output,
-            'n_hiden' : self.__n_hidden,
+
+        return {
+            'name': 'LSTM',
+            'n_input': self.__n_input,
+            'n_hiden': self.__n_hidden,
             'timestep': self.__timestep,
-            'Uf' : self.__Uf.tolist(),
-            'Ui' : self.__Ui.tolist(),
-            'Uc' : self.__Uc.tolist(),
-            'Uo' : self.__Uo.tolist(),
-            'Wf' : self.__Wf.tolist(),
-            'Wi' : self.__Wi.tolist(),
-            'Wc' : self.__Wc.tolist(),
-            'Wo' : self.__Wo.tolist(),
-            'Bf' : self.__bf.tolist(),
-            'Bi' : self.__bi.tolist(),
-            'Bc' : self.__bc.tolist(),
-            'Bo' : self.__bo.tolist(),
-            'V'  : self.__V.tolist(),
-            'bias' : self.__biases_ho.tolist()
+            'Uf': self.__Uf.tolist(),
+            'Ui': self.__Ui.tolist(),
+            'Uc': self.__Uc.tolist(),
+            'Uo': self.__Uo.tolist(),
+            'Wf': self.__Wf.tolist(),
+            'Wi': self.__Wi.tolist(),
+            'Wc': self.__Wc.tolist(),
+            'Wo': self.__Wo.tolist(),
+            'Bf': self.__bf.tolist(),
+            'Bi': self.__bi.tolist(),
+            'Bc': self.__bc.tolist(),
+            'Bo': self.__bo.tolist(),
         }
 
         pass
 
-    # TODO : load LSTM layer from dictionary
     def from_dict(self, data: dict) -> None:
         '''Load LSTM layer from dictionary'''
 
         self.__n_input = data['n_input']
         self.__n_hidden = data['n_hiden']
-        self.__n_output = data['n_ouput']
 
         self.__timestep = data['timestep']
 
@@ -145,14 +130,8 @@ class LSTM(Layer):
         self.__Wc = np.array(data['Wc'])
         self.__Wo = np.array(data['Wo'])
 
-        self.__V = np.array(data['V'])
-
         # Biases
         self.__bf = np.array(data['Bf'])
         self.__bi = np.array(data['Bi'])
         self.__bc = np.array(data['Bc'])
         self.__bo = np.array(data['Bo'])
-
-        # biases from RNN state to output vector
-        self.__biases_ho = np.array(data['bias'])
-
