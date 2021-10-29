@@ -81,12 +81,12 @@ class Sequential:
             self.__layers = []
             for layer in json_obj['layers']:
                 if layer['name'] == 'LSTM':
-                    temp = LSTM(n_input=4, n_hidden=4, n_output=4,
-                                timestep=1)     # Dummy layer
+                    # Dummy layer
+                    temp = LSTM(n_input=4, n_hidden=4, timestep=1)
 
                 elif layer['name'] == 'Dense':
-                    temp = Dense(n_input=1, n_output=1,
-                                 activation="sigmoid")          # Dummy layer
+                    # Dummy layer
+                    temp = Dense(n_input=1, n_output=1, activation="sigmoid")
 
                 else:
                     raise InputError('layer not supported')
