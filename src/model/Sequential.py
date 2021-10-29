@@ -19,8 +19,8 @@ class Sequential:
         '''Execute forward propagation for Sequential model'''
 
         res = _input
-        for layer in self.layers:
-            layer.forward(res)
+        for layer in self.__layers:
+            res = layer.forward(res)
 
         return res
 

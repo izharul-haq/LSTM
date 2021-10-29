@@ -6,15 +6,22 @@ from layers import LSTM, Dense
 from model import Sequential
 
 # Read training data
-train = pd.read_csv('data/train.csv')
-test = pd.read_csv('data/test.csv')
+train_ancestor = pd.read_csv('../data/train.csv')
+test_ancestor = pd.read_csv('../data/test.csv')
 
 
 # Preprocess data
 # TODO : preprocessing data
 # TODO : 1. Drop date feature
-train = train.drop(['Date'], axis=1)
-test = test.drop(['Date'], axis=1)
+train = train_ancestor.drop(['Date'], axis=1)
+test = test_ancestor.drop(['Date'], axis=1)
+
+# Only 32 date time before
+train.drop(train.index[32:],0,inplace=True)
+
+# Balik urutan Row
+train = train.loc[::-1]
+
 # TODO : 2. Handle volume feature
 
 # Drop null value and change dtypes of volume to int64
@@ -40,18 +47,18 @@ test['Market Cap'] = pd.array(test['Market Cap'], dtype='int64')
 scaler = MinMaxScaler()
 train_scaled = scaler.fit_transform(train)
 test_scaled = scaler.fit_transform(test)
-train_scaled = pd.DataFrame(train_scaled, columns=train.columns)
-test_scaled = pd.DataFrame(test_scaled, columns=test.columns)
-# print(train_scaled.head())
-# print(test_scaled.head())
+# train_scaled = pd.DataFrame(train_scaled, columns=train.columns)
+# test_scaled = pd.DataFrame(test_scaled, columns=test.columns)
 
 # Initialize model
-model = Sequential(layers = [
-    LSTM(n_input=4, n_hidden=4, timestep=1),
-    Dense(n_input = 1, n_output =1 , activation = "sigmoid"),
+model = Sequential(layers=[
+    LSTM(n_input=6, n_hidden=6, timestep=32),
+    Dense(n_input = 6, n_output =6 , activation = "sigmoid"),
 ])
 # model.save('json/example3')
 # lstm2 = LSTM()
 # model.load('json/example3')
-# print(lstm.forward(np.array([[0, 1, 2, 3]])))
+# print(train_scaled.shape)
+print(model.forward(train_scaled))
+# print(train_scaled)
 model.summary()
