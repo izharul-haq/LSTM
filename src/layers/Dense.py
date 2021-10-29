@@ -46,7 +46,6 @@ class Dense(Layer):
 
         pass
 
-    # TODO : convert dense layer into dictionary
     def to_dict(self) -> dict:
         '''Convert dense layer into dictionary'''
 
@@ -58,8 +57,6 @@ class Dense(Layer):
             'weights': self.__W.tolist(),
             'biases': self.__b.tolist(),
         }
-
-    # TODO : load dense layer from dictionary
 
     def from_dict(self, data: dict) -> None:
         '''Load dense layer from dictionary'''
