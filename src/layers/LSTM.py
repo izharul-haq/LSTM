@@ -78,7 +78,6 @@ class LSTM(Layer):
 
             prev_h = np.multiply(curr_o, tanh(prev_c))
 
-        # output neurons use linear activation
         return prev_h
 
     def backward(self, grad: np.ndarray, learning_rate: float) -> np.ndarray:
