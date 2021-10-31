@@ -57,3 +57,6 @@ print('Actual resullt: ', test_scaled[6])
 
 # Print model summary
 model.summary()
+
+# Save model
+model.save('seq_model')
